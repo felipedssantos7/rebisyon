@@ -93,16 +93,27 @@
   text-align: left;
 }
 
-#body #decks-table tbody tr .new-cards {
-  color: blue;
+#body #decks-table tbody tr .new-cards span, 
+#body #decks-table tbody tr .cards-to-re-study span, 
+#body #decks-table tbody tr .cards-to-review span {
+  display: inline-block;
+  font-size: 12.5px;
+  padding: 2.5px 5px;
+  color: white;
+  border-radius: 7px;
+  min-width: 20px;
 }
 
-#body #decks-table tbody tr .cards-to-re-study {
-  color: darkorange;
+#body #decks-table tbody tr .new-cards span {
+  background-color: rgb(75, 183, 255);
 }
 
-#body #decks-table tbody tr .cards-to-review {
-  color: green;
+#body #decks-table tbody tr .cards-to-re-study span {
+  background-color: rgb(255, 140, 0);
+}
+
+#body #decks-table tbody tr .cards-to-review span {
+  background-color: rgb(0, 128, 0);
 }
 
 #body #decks-table tbody tr .settings {

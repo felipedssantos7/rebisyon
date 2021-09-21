@@ -46,18 +46,26 @@ function createDeckList() {
             row.appendChild(cols[j]);
             cols[j].classList.add(classes[j]);
         }
-        // Create texts of columns .
+        // Create spans of cards number columns.
+        var spanNewCards = document.createElement("span");
+        var spanCardsToReStudy = document.createElement("span");
+        var spanCardsToReview = document.createElement("span");
+        // Create texts of spans.
         var deckName = document.createTextNode(decks[i]["deck-name"]);
         var newCards = document.createTextNode(decks[i]["new-cards"]);
         var cardsToReStudy = document.createTextNode(decks[i]["cards-to-re-study"]);
         var cardsToReview = document.createTextNode(decks[i]["cards-to-review"]);
         var settings = document.createElement("span");
         settings.textContent = "⚙️";
-        // Add texts in the columns.
+        // Add texts in spans.
+        spanNewCards.appendChild(newCards);
+        spanCardsToReStudy.appendChild(cardsToReStudy);
+        spanCardsToReview.appendChild(cardsToReview);
+        // Add texts and spans in the columns.
         cols[0].appendChild(deckName);
-        cols[1].appendChild(newCards);
-        cols[2].appendChild(cardsToReStudy);
-        cols[3].appendChild(cardsToReview);
+        cols[1].appendChild(spanNewCards);
+        cols[2].appendChild(spanCardsToReStudy);
+        cols[3].appendChild(spanCardsToReview);
         cols[4].appendChild(settings);
     }
 }

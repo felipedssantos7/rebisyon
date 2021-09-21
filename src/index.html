@@ -6,12 +6,12 @@
     <link rel="stylesheet" href="css/globals.css">
     <link rel="stylesheet" href="css/index.css  ">
   </head>
-  <body>
+  <body onload="loadBody()">
     <div id="content">
       <div id="navbar">
         <div id="logo">📚 Rebisyon</div>
         <div id="menu">
-          <div class="item">Baralhos</div>
+          <div class="item selected">Baralhos</div>
           <div class="item">Adicionar</div>
           <div class="item">Painel</div>
           <div class="item">Estatísticas</div>
@@ -19,43 +19,17 @@
         </div>
       </div>
       <div id="body">
-        <table id="decks-table">
-          <thead>
-            <tr>
-              <th>Nome do baralho</th>
-              <th>Cartões novos</th>
-              <th colspan="2">Cartões a revisar</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td class="deck-name">Padrão</td>
-              <td class="new-cards">0</td>
-              <td class="cards-to-re-study">0</td>
-              <td class="cards-to-review">0</td>
-              <td><img src="assets/images/settings_black_24dp.svg" alt="⚙️" width="20px"></td>
-            </tr>
-            <tr>
-              <td class="deck-name">Inglês</td>
-              <td class="new-cards">20</td>
-              <td class="cards-to-re-study">0</td>
-              <td class="cards-to-review">137</td>
-              <td><img src="assets/images/settings_black_24dp.svg" alt="⚙️" width="20px"></td>
-            </tr>
-            <tr>
-              <td class="deck-name">Programação</td>
-              <td class="new-cards">1</td>
-              <td class="cards-to-re-study">73</td>
-              <td class="cards-to-review">314</td>
-              <td><img src="assets/images/settings_black_24dp.svg" alt="⚙️" width="20px"></td>
-            </tr>
-          </tbody>
-        </table>
+        <table id="decks-table"></table>  
         <div id="info">
           <div id="total">
-            <b>Total de cartões novos:</b> <span id="new-total">21</span><br>
-            <b>Total de cartões para rever:</b> <span id="total-to-review">524</span>
+            <div>
+              <b>Total de cartões novos:</b>
+              <span id="total-of-news">0</span>
+            </div>
+            <div>
+              <b>Total de cartões para rever:</b>
+              <span id="total-to-review">0</span>
+            </div>
           </div>
           <div>Você estudou 0 cartão(ões) em 0 segundo(s) hoje.</div>
         </div>
@@ -67,4 +41,5 @@
       </div>
     </div>
   </body>
+  <script src="js/index.js"></script>
 </html>

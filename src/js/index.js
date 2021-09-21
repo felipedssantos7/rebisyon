@@ -1,7 +1,7 @@
 // Functions that create the decks table.
 function createDeckList() {
     // Array of titles.
-    var titles = ["Nome do baralho", "Cartões novos", "Cartões a revisar", ""];
+    var titles = ["📦 Nome do baralho", "🆕 Cartões novos", "👀 Cartões a revisar", ""];
     // Get table element.
     var table = document.getElementById("decks-table");
     // Create table head.
@@ -51,10 +51,8 @@ function createDeckList() {
         var newCards = document.createTextNode(decks[i]["new-cards"]);
         var cardsToReStudy = document.createTextNode(decks[i]["cards-to-re-study"]);
         var cardsToReview = document.createTextNode(decks[i]["cards-to-review"]);
-        var settings = document.createElement("img");
-        settings.src = "assets/images/settings_black_24dp.svg";
-        settings.width = "20";
-        settings.alt = "⚙️";
+        var settings = document.createElement("span");
+        settings.textContent = "⚙️";
         // Add texts in the columns.
         cols[0].appendChild(deckName);
         cols[1].appendChild(newCards);
@@ -73,6 +71,7 @@ function addInfos() {
     totalToReview.textContent = "534";
 }
 
+// Call this function(s) when body loads.
 function loadBody() {
     createDeckList();
     addInfos();

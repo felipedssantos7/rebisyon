@@ -51,8 +51,14 @@
 }
 
 #body #decks-table thead tr th {
-  border: 1px solid lightgrey;
+  border-left: 1px solid lightgrey;
   background-color: rgb(240, 240, 240);
+  padding: 10px;
+  user-select: none;
+}
+
+#body #decks-table thead tr th:first-child {
+  border-left: 0px solid transparent;
 }
 
 #body #decks-table thead tr th:last-child {
@@ -60,8 +66,18 @@
   background-color: transparent;
 }
 
-#body #decks-table thead tr, #body #decks-table tbody tr {
+#body #decks-table thead tr, 
+#body #decks-table tbody tr {
   border-bottom: 1px solid lightgrey;
+}
+
+#body #decks-table tbody tr td:first-child:hover {
+  background-color: lightgrey;
+  cursor: pointer;
+}
+
+#decks-table tbody tr:hover td:last-child {
+  background-color: white;
 }
 
 #body #decks-table thead tr th:last-child, 
@@ -75,11 +91,6 @@
 
 #body #decks-table tbody tr td:first-child {
   text-align: left;
-}
-
-#body #decks-table tbody tr .deck-name:hover {
-  cursor: pointer;
-  text-decoration: underline;
 }
 
 #body #decks-table tbody tr .new-cards {
@@ -97,12 +108,12 @@
 #body #decks-table tbody tr .settings {
   cursor: pointer;
   user-select: none;
+  width: 25px;
+  height: 25px;
 }
 
 #body #decks-table tbody tr .settings:hover {
-  border-top: 1px solid lightgrey;
-  border-bottom: 1px solid lightgrey;
-  background-color: lightgrey;
+  font-size: 20px;
 }
 
 #body #info {

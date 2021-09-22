@@ -20,9 +20,9 @@ function createDeckList() {
     }
     // Array of decks.
     var  decks = [
-        {"deck-name": "Padrão", "new-cards": 0, "cards-to-re-study": 0, "cards-to-review": 0},
-        {"deck-name": "Inglês", "new-cards": 20, "cards-to-re-study": 0, "cards-to-review": 137},
-        {"deck-name": "Programação", "new-cards": 1, "cards-to-re-study": 73, "cards-to-review": 314},
+        {"deck-name": "", "new-cards": 0, "cards-to-re-study": 0, "cards-to-review": 0},
+        {"deck-name": "", "new-cards": 20, "cards-to-re-study": 0, "cards-to-review": 137},
+        {"deck-name": "", "new-cards": 1, "cards-to-re-study": 73, "cards-to-review": 314},
     ];
     // Array of classes.
     var classes = ["deck-name", "new-cards", "cards-to-re-study", "cards-to-review", "settings"];

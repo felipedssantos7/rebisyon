@@ -18,56 +18,10 @@ function createDeckList() {
             th.colSpan = 2;
         }
     }
-    // Array of decks.
-    var  decks = [
-        {"deck-name": "", "new-cards": 0, "cards-to-re-study": 0, "cards-to-review": 0},
-        {"deck-name": "", "new-cards": 20, "cards-to-re-study": 0, "cards-to-review": 137},
-        {"deck-name": "", "new-cards": 1, "cards-to-re-study": 73, "cards-to-review": 314},
-    ];
-    // Array of classes.
-    var classes = ["deck-name", "new-cards", "cards-to-re-study", "cards-to-review", "settings"];
+    
     // Create table body.
     var tbody = document.createElement("tbody");
     table.appendChild(tbody);
-    for(var i = 0; i < decks.length; i++) {
-        // Create table body row.
-        var row = document.createElement("tr");
-        tbody.appendChild(row);
-        // Create table body columns.
-        var cols = [
-            document.createElement("td"), // Deck name.
-            document.createElement("td"), // New cards.
-            document.createElement("td"), // Cards to re-study.
-            document.createElement("td"), // Cards to review.
-            document.createElement("td"), // Settings.
-        ];
-        // Add columns in the row.
-        for(var j = 0; j < 5; j++) {
-            row.appendChild(cols[j]);
-            cols[j].classList.add(classes[j]);
-        }
-        // Create spans of cards number columns.
-        var spanNewCards = document.createElement("span");
-        var spanCardsToReStudy = document.createElement("span");
-        var spanCardsToReview = document.createElement("span");
-        // Create texts of spans.
-        var deckName = document.createTextNode(decks[i]["deck-name"]);
-        var newCards = document.createTextNode(decks[i]["new-cards"]);
-        var cardsToReStudy = document.createTextNode(decks[i]["cards-to-re-study"]);
-        var cardsToReview = document.createTextNode(decks[i]["cards-to-review"]);
-        var settings = document.createElement("span");
-        settings.textContent = "⚙️";
-        // Add texts in spans.
-        spanNewCards.appendChild(newCards);
-        spanCardsToReStudy.appendChild(cardsToReStudy);
-        spanCardsToReview.appendChild(cardsToReview);
-        // Add texts and spans in the columns.
-        cols[0].appendChild(deckName);
-        cols[1].appendChild(spanNewCards);
-        cols[2].appendChild(spanCardsToReStudy);
-        cols[3].appendChild(spanCardsToReview);
-        cols[4].appendChild(settings);
-    }
 }
 
 // Add infos.

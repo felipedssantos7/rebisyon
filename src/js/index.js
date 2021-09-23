@@ -35,6 +35,7 @@ function addInfos() {
 
 // Call this function(s) when body loads.
 function loadBody() {
+    selectDecks(fillDecksTable);
     createDeckList();
     addInfos();
 }

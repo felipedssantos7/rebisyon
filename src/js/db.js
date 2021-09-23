@@ -1,3 +1,4 @@
+// Get database.
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database(__dirname + '/db/rebisyon.db');
 
@@ -60,6 +61,7 @@ function fillDecksTable(register, callback) {
   var cardsToReview = document.createTextNode(0);
   var settings = document.createElement("span");
   settings.textContent = "⚙️";
+  settings.setAttribute("onclick", "removeDeck('" + register.id + "')");
   // Add texts in spans.
   spanNewCards.appendChild(newCards);
   spanCardsToReStudy.appendChild(cardsToReStudy);
@@ -73,8 +75,8 @@ function fillDecksTable(register, callback) {
 }
 
 // Add one row in the decks table for each register returned.
-selectDecks(fillDecksTable);
 
+// Get the number of cards in a specific deck and state.
 function getCardsCount(state, idDeckFK, callback) {
   var sql = 'SELECT COUNT(*) AS `count` FROM `card` WHERE `state` = ? AND `idDeckFK` = ?';
   db.get(sql, [state, idDeckFK], function (err, row) {
@@ -85,8 +87,30 @@ function getCardsCount(state, idDeckFK, callback) {
   });
 }
 
+// Update the column value.
 function setCardsCol(row_id, col, count) {
   var row = document.getElementById("row_" + row_id);
   var newCardsCol = row.children[col];
   newCardsCol.children[0].textContent = count;
+}
+
+// Insert a new deck.
+function addDeck() {
+  var name = "Deck test";
+  var sql = "INSERT INTO `deck` (`name`) VALUES (?)";
+  db.run(sql, [name]);
+  selectDecks(fillDecksTable);
+  var table = document.getElementById("decks-table");
+  var tbody = table.children[1];
+  tbody.innerHTML = "";
+}
+
+// Remove deck.
+function removeDeck(id) {
+  var sql = "DELETE FROM `deck` WHERE `id` = ?";
+  db.run(sql, [id]);
+  selectDecks(fillDecksTable);
+  var table = document.getElementById("decks-table");
+  var tbody = table.children[1];
+  tbody.innerHTML = "";
 }

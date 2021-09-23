@@ -27,6 +27,7 @@ DROP TABLE `card`;
 INSERT INTO `deck` (`name`) VALUES ("Padrão");
 INSERT INTO `deck` (`name`) VALUES ("Inglês");
 INSERT INTO `deck` (`name`) VALUES ("Programação");
+INSERT INTO `deck` (`name`) VALUES ("Deck test");
 
 -- Card.
 INSERT INTO `card` (`front`, `back`, `state`, `idDeckFK`) VALUES 
@@ -207,3 +208,7 @@ INSERT INTO `card` (`front`, `back`, `state`, `idDeckFK`) VALUES
 
 -- Cards of deck.
 SELECT * FROM `card` WHERE `idDeckFK` = 1;
+
+/* Remove data. */
+-- Delete deck.
+DELETE FROM `deck` WHERE `name` = "Deck test";

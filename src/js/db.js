@@ -5,7 +5,9 @@ var db = new sqlite3.Database(__dirname + '/db/rebisyon.db');
 function selectDecks(callback) {
   db.each("SELECT * FROM `deck`", function (err, register) {
     callback(register, setTimeout(function () {
-      selectNewCardsFromSpecificDeckAndState("New", register.id, updateNewCardsColumn);
+      getCardsCount("New", register.id, setCardsCol);
+      getCardsCount("Re-study", register.id, setCardsCol);
+      getCardsCount("Review", register.id, setCardsCol);
     }, 0));
   });
 }
@@ -73,15 +75,18 @@ function fillDecksTable(register, callback) {
 // Add one row in the decks table for each register returned.
 selectDecks(fillDecksTable);
 
-function selectNewCardsFromSpecificDeckAndState(state, idDeckFK, callback) {
+function getCardsCount(state, idDeckFK, callback) {
   var sql = 'SELECT COUNT(*) AS `count` FROM `card` WHERE `state` = ? AND `idDeckFK` = ?';
   db.get(sql, [state, idDeckFK], function (err, row) {
-    callback(idDeckFK, row.count);
+    var col = 1;
+    if(state == "Re-study") col = 2;
+    else if(state == "Review") col = 3;
+    callback(idDeckFK, col, row.count);
   });
 }
 
-function updateNewCardsColumn(row_id, newCardsCount) {
+function setCardsCol(row_id, col, count) {
   var row = document.getElementById("row_" + row_id);
-  var newCardsCol = row.children[1];
-  newCardsCol.children[0].textContent = newCardsCount;
+  var newCardsCol = row.children[col];
+  newCardsCol.children[0].textContent = count;
 }

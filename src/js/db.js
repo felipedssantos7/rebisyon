@@ -2,6 +2,10 @@
 var sqlite3 = require('sqlite3').verbose();
 var db = new sqlite3.Database(__dirname + '/db/rebisyon.db');
 
+module.exports = {
+  addDeck, getLastDeckId, rmDeck
+};
+
 // Functions to query each deck in the database.
 function selectDecks(callback) {
   db.each("SELECT * FROM `deck`", function (err, register) {
@@ -61,7 +65,7 @@ function fillDecksTable(register, callback) {
   var cardsToReview = document.createTextNode(0);
   var settings = document.createElement("span");
   settings.textContent = "⚙️";
-  settings.setAttribute("onclick", "removeDeck('" + register.id + "')");
+  settings.setAttribute("onclick", "rmDeck('"+ register.id +"')");
   // Add texts in spans.
   spanNewCards.appendChild(newCards);
   spanCardsToReStudy.appendChild(cardsToReStudy);
@@ -94,23 +98,21 @@ function setCardsCol(row_id, col, count) {
   newCardsCol.children[0].textContent = count;
 }
 
-// Insert a new deck.
-function addDeck() {
-  var name = "Deck test";
+// Add a new deck.
+function addDeck(db, name, callback) {
   var sql = "INSERT INTO `deck` (`name`) VALUES (?)";
   db.run(sql, [name]);
-  selectDecks(fillDecksTable);
-  var table = document.getElementById("decks-table");
-  var tbody = table.children[1];
-  tbody.innerHTML = "";
+  callback(db);
+}
+
+// Get the lack deck id added.
+function getLastDeckId(db, callback) {
+  var sql = "SELECT * FROM `deck` ORDER BY `id` DESC LIMIT 1";
+  db.get(sql, callback);
 }
 
 // Remove deck.
-function removeDeck(id) {
+function rmDeck(db, id, callback) {
   var sql = "DELETE FROM `deck` WHERE `id` = ?";
-  db.run(sql, [id]);
-  selectDecks(fillDecksTable);
-  var table = document.getElementById("decks-table");
-  var tbody = table.children[1];
-  tbody.innerHTML = "";
+  db.run(sql, [id], callback);
 }

@@ -1,14 +1,18 @@
-const { app, BrowserWindow } = require('electron');
+const electron = require('electron');
+const { app, BrowserWindow, ipcMain } = electron;
 const path = require('path');
+var sqlite3 = require('sqlite3').verbose();
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) { // eslint-disable-line global-require
   app.quit();
 }
 
+let mainWindow;
+
 const createWindow = () => {
   // Create the browser window.
-  const mainWindow = new BrowserWindow({
+  mainWindow = new BrowserWindow({
     width: 800,
     height: 600,
     webPreferences: {
@@ -45,3 +49,21 @@ app.on('activate', () => {
 
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
+
+const dbPath = path.resolve(__dirname, 'db/rebisyon.db')
+var db = new sqlite3.Database(dbPath);
+const tools = require('./js/db.js');
+
+ipcMain.on("requestAddDeck", (event, name) => {
+  tools.addDeck(db, name, function () {
+    tools.getLastDeckId(db, function (err, row) {
+      mainWindow.send("receiveAddDeck", row);
+    });
+  });
+});
+
+ipcMain.on("requestRmDeck", (event, id) => {
+  tools.rmDeck(db, id, function (err) {
+    mainWindow.webContents.send("receiveRmDeck", id);
+  });
+})

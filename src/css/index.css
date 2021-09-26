@@ -27,6 +27,11 @@
   user-select: none;
 }
 
+#navbar #menu .item a {
+  text-decoration: none;
+  color: white;
+}
+
 #navbar #menu .item:last-child {
   border-right: 0px solid transparent;
 }

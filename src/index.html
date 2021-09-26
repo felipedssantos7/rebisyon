@@ -1,46 +1,76 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>📚 Rebisyon</title>
-    <link rel="stylesheet" href="css/globals.css">
-    <link rel="stylesheet" href="css/index.css">
-  </head>
-  <body onload="loadBody();">
-    <div id="content">
-      <div id="navbar">
-        <div id="logo">📚 Rebisyon</div>
-        <div id="menu">
-          <div class="item selected">Baralhos</div>
-          <div class="item">Adicionar</div>
-          <div class="item">Painel</div>
-          <div class="item">Estatísticas</div>
-          <div class="item">Sincronizar</div>
-        </div>
-      </div>
-      <div id="body">
-        <table id="decks-table"></table>  
-        <div id="info">
-          <div id="total">
-            <div>
-              <b>Total de cartões novos:</b>
-              <span id="total-of-news">0</span>
-            </div>
-            <div>
-              <b>Total de cartões para rever:</b>
-              <span id="total-to-review">0</span>
-            </div>
-          </div>
-          <div>Você estudou 0 cartão(ões) em 0 segundo(s) hoje.</div>
-        </div>
-      </div>
-      <div id="footer">
-        <button>Obter baralho compartilhado</button>
-        <button id="add-deck" onclick="addDeck()">Criar novo baralho</button>
-        <button>Importar arquivo</button>
+
+<head>
+  <meta charset="UTF-8">
+  <title>📚 Rebisyon</title>
+  <link rel="stylesheet" href="css/globals.css">
+  <link rel="stylesheet" href="css/index.css">
+</head>
+
+<body onload="loadBody();">
+  <div id="content">
+    <div id="navbar">
+      <div id="logo">📚 Rebisyon</div>
+      <div id="menu">
+        <div class="item selected">Baralhos</div>
+        <div class="item">Adicionar</div>
+        <div class="item">Painel</div>
+        <div class="item">Estatísticas</div>
+        <div class="item"><a href="pages/test.html">Sincronizar</a></div>
       </div>
     </div>
-  </body>
-  <script src="js/index.js"></script>
-  <script src="js/db.js"></script>
+    <div id="body">
+      <table id="decks-table"></table>
+      <div id="info">
+        <div id="total">
+          <div>
+            <b>Total de cartões novos:</b>
+            <span id="total-of-news">0</span>
+          </div>
+          <div>
+            <b>Total de cartões para rever:</b>
+            <span id="total-to-review">0</span>
+          </div>
+        </div>
+        <div>Você estudou 0 cartão(ões) em 0 segundo(s) hoje.</div>
+      </div>
+    </div>
+    <div id="footer">
+      <button>Obter baralho compartilhado</button>
+      <button id="add-deck">Criar novo baralho</button>
+      <button>Importar arquivo</button>
+    </div>
+  </div>
+</body>
+<script src="js/index.js"></script>
+<script src="js/db.js"></script>
+<script>
+  // Get ipc.
+  const { ipcRenderer } = require("electron");
+
+  // Add event of click to add deck.
+  document.querySelector("#add-deck").addEventListener("click", (event) => {
+    event.preventDefault();
+    var name = "Baralho de teste";
+    ipcRenderer.send("requestAddDeck", name);
+  });
+  // Receive the result of add deck request.
+  ipcRenderer.on("receiveAddDeck", (event, row) => {
+    addRow(row);
+  });
+
+  // Function to remove a choosed deck.
+  function rmDeck(deckId) {
+      ipcRenderer.send("requestRmDeck", deckId);
+  };
+
+  // Wait the call of backend to remove the row table.
+  ipcRenderer.on("receiveRmDeck", (event, id) => {
+    rmRow(id);
+  });
+
+
+</script>
+
 </html>

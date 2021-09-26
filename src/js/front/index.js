@@ -71,7 +71,7 @@ function buildTbody(rows, callback) {
         var cardsToReview = document.createTextNode(0);
         var settings = document.createElement("span");
         settings.textContent = "🗑️"; // ⚙️
-        settings.setAttribute("onclick", "rmDeck('"+ rows[i].id +"')");
+        settings.setAttribute("onclick", "rmDk('"+ rows[i].id +"')");
         // Add texts in spans.
         spanNewCards.appendChild(newCards);
         spanCardsToReStudy.appendChild(cardsToReStudy);
@@ -147,7 +147,7 @@ function addRow(row) {
     var cardsToReview = document.createTextNode(0);
     var settings = document.createElement("span");
     settings.textContent = "🗑️"; // ⚙️
-    settings.setAttribute("onclick", "rmDeck('" + row.id + "')");
+    settings.setAttribute("onclick", "rmDk('" + row.id + "')");
 
     // Add texts in the spans.
     spanNewCards.appendChild(newCards);
@@ -162,6 +162,16 @@ function addRow(row) {
     td[4].appendChild(settings);
 }
 
+// Add number of cards.
+function addCdsNmb(rows, col) {
+    for(var i = 0; i < rows.length; i++) {
+        var tr = document.getElementById("row_" + rows[i].idDeckFK);
+        var td = tr.children[col];
+        var span = td.children[0];
+        span.textContent = rows[i].count;
+    }
+}
+
 // Remove row from decks table.
 function rmRow(id) {
     document.getElementById("row_" + id).remove();
@@ -170,6 +180,6 @@ function rmRow(id) {
 // Call this function(s) when body loads.
 function onLoadBody() {
     buildThead();
-    getDecks();
+    getDks();
     addInfos();
 }

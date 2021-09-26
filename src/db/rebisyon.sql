@@ -204,11 +204,19 @@ INSERT INTO `card` (`front`, `back`, `state`, `idDeckFK`) VALUES
     ("98", "Back side", "Review", 3), 
     ("99", "Back side", "Review", 3), 
     ("100", "Back side", "Review", 3);
+
+/* Updates. */
+UPDATE `deck` SET `id` = 1 WHERE `id` = 1;
+UPDATE `deck` SET `id` = 2 WHERE `id` = 2;
+UPDATE `deck` SET `id` = 3 WHERE `id` = 3;
+
 /* Querys. */
 
--- Cards of deck.
+SELECT * FROM `deck`;
+SELECT * FROM `card`;
 SELECT * FROM `card` WHERE `idDeckFK` = 1;
 
 /* Remove data. */
 -- Delete deck.
 DELETE FROM `deck` WHERE `name` = "Deck test";
+DELETE FROM `card` WHERE `id` != 0;

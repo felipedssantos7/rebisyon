@@ -52,30 +52,46 @@ app.on('activate', () => {
 
 const dbPath = path.resolve(__dirname, 'db/rebisyon.db')
 var db = new sqlite3.Database(dbPath);
-const tools = require('./js/db.js');
+const database = require('./js/back/db.js');
 
-ipcMain.on("requestGetDecks", (event) => {
-  tools.getDecks(db, function (err, rows)  {
-    mainWindow.webContents.send("receiveGetDecks", rows);
+ipcMain.on("rqtGetDks", (event) => {
+  database.getDks(db, function (err, rows)  {
+    if(err == null) {
+      mainWindow.webContents.send("rcvGetDks", rows);
+    } else {
+      mainWindow.webContents.send("error");
+    }
   });
 });
 
-ipcMain.on("requestGetCardsNumber", (event, state) => {
-  tools.getCardsCount(db, state, function (err, row) {
-    mainWindow.webContents.send("receiveGetCardsNumber", state, row);
+ipcMain.on("rqtGetCdsNbr", (event, state) => {
+  database.getCdsCnt(db, state, function (err, row) {
+    if(err == null) {
+      mainWindow.webContents.send("rcvGetCdsNbr", state, row);
+    } else {
+      mainWindow.webContents.send("error");
+    }
   });
 });
 
-ipcMain.on("requestAddDeck", (event, name) => {
-  tools.addDeck(db, name, function () {
-    tools.getLastDeckId(db, function (err, rows) {
-      mainWindow.send("receiveAddDeck", rows);
-    });
+ipcMain.on("rqtAddDk", (event, name) => {
+  database.addDk(db, name, function (err, rows) {
+    database.getLstDkId(db, function (err, rows) {
+      if(err == null) {
+        mainWindow.send("rcvAddDk", rows);
+      } else {
+        mainWindow.webContents.send("error");
+      }
+    })
   });
 });
 
-ipcMain.on("requestRmDeck", (event, id) => {
-  tools.rmDeck(db, id, function (err) {
-    mainWindow.webContents.send("receiveRmDeck", id);
+ipcMain.on("rqtRmDk", (event, id) => {
+  database.rmDk(db, id, function (err) {
+    if(err == null) {
+      mainWindow.webContents.send("rcvRmDk", id);
+    } else {
+      mainWindow.webContents.send("error");
+    }
   });
 })

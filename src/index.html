@@ -20,7 +20,7 @@
         <div class="item"><a href="pages/test.html">Sincronizar</a></div>
       </div>
     </div>
-    <div id="body">
+    <div id="main">
       <table id="decks-table"></table>
       <div id="info">
         <div id="total">
@@ -43,70 +43,63 @@
     </div>
   </div>
 </body>
-<script src="js/index.js"></script>
-<script src="js/db.js"></script>
+<script src="js/front/index.js"></script>
 <script>
   // Get ipc.
   const { ipcRenderer } = require("electron");
 
-  // Request decks list from database.
-  function getDecks() {
-    ipcRenderer.send("requestGetDecks");
+  // To request list of decks from the database.
+  function getDks() {
+    ipcRenderer.send("rqtGetDks");
   }
 
-  // Receive decks list from database.
-  ipcRenderer.on("receiveGetDecks", (event, rows) => {
+  // To receive list of decks from the database.
+  ipcRenderer.on("rcvGetDks", (event, rows) => {
     buildTbody(rows, getCardsNumber, getCardsNumber);
   });
 
+  // To request number of cards from the database.
   function getCardsNumber(deckId, state) {
-    ipcRenderer.send("requestGetCardsNumber", deckId, state);
+    ipcRenderer.send("rqtGetCdsNbr", deckId, state);
   }
 
-  ipcRenderer.on("receiveGetCardsNumber", (event, state, rows) => {
+  // To receive number of cards from the database.
+  ipcRenderer.on("rcvGetCdsNbr", (event, state, rows) => {
     if (state == "New") {
-      for(var i = 0; i < rows.length; i++) {
-        var tr = document.getElementById("row_" + rows[i].idDeckFK);
-        var td = tr.children[1];
-        var span = td.children[0];
-        span.textContent = rows[i].count;
-      }
+      addCdsNmb(rows, 1);
     } else if (state == "Re-study") {
-      for(var i = 0; i < rows.length; i++) {
-        var tr = document.getElementById("row_" + rows[i].idDeckFK);
-        var td = tr.children[2];
-        var span = td.children[0];
-        span.textContent = rows[i].count;
-      }
+      addCdsNmb(rows, 2);
     } else if (state == "Review") {
-      for(var i = 0; i < rows.length; i++) {
-        var tr = document.getElementById("row_" + rows[i].idDeckFK);
-        var td = tr.children[3];
-        var span = td.children[0];
-        span.textContent = rows[i].count;
-      }
+      addCdsNmb(rows, 3);
     }
   });
 
-  // Request deck add in the db.
+  // To request to add deck in the database.
   document.querySelector("#add-deck").addEventListener("click", (event) => {
     event.preventDefault();
     var name = "Baralho de teste";
-    ipcRenderer.send("requestAddDeck", name);
+    ipcRenderer.send("rqtAddDk", name);
   });
 
-  // Receive deck add return.
-  ipcRenderer.on("receiveAddDeck", (event, row) => addRow(row));
+  // To receive the add deck return.
+  ipcRenderer.on("rcvAddDk", (event, row) => {
+    addRow(row);
+  });
 
-  // Request remove deck fom database.
-  function rmDeck(deckId) {
-      ipcRenderer.send("requestRmDeck", deckId);
+  // To request to remove deck from the database.
+  function rmDk(deckId) {
+      ipcRenderer.send("rqtRmDk", deckId);
   };
 
-  // Receive remove deck return.
-  ipcRenderer.on("receiveRmDeck", (event, id) => rmRow(id));
+  // To receive the remove deck return.
+  ipcRenderer.on("rcvRmDk", (event, id) => {
+    rmRow(id);
+  });
 
+  // To receive some error.
+  ipcRenderer.on("error", (event) => {
+    alert("An unexpected error has occurred! Please restart your Rebysion!");
+  });
 
 </script>
-
 </html>

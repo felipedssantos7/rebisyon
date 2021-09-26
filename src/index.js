@@ -54,10 +54,22 @@ const dbPath = path.resolve(__dirname, 'db/rebisyon.db')
 var db = new sqlite3.Database(dbPath);
 const tools = require('./js/db.js');
 
+ipcMain.on("requestGetDecks", (event) => {
+  tools.getDecks(db, function (err, rows)  {
+    mainWindow.webContents.send("receiveGetDecks", rows);
+  });
+});
+
+ipcMain.on("requestGetCardsNumber", (event, state) => {
+  tools.getCardsCount(db, state, function (err, row) {
+    mainWindow.webContents.send("receiveGetCardsNumber", state, row);
+  });
+});
+
 ipcMain.on("requestAddDeck", (event, name) => {
   tools.addDeck(db, name, function () {
-    tools.getLastDeckId(db, function (err, row) {
-      mainWindow.send("receiveAddDeck", row);
+    tools.getLastDeckId(db, function (err, rows) {
+      mainWindow.send("receiveAddDeck", rows);
     });
   });
 });

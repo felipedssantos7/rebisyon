@@ -1,5 +1,5 @@
 // Functions that create the decks table.
-function createDeckList() {
+function buildThead() {
     // Array of titles.
     var titles = ["📦 Nome do baralho", "🆕 Cartões novos", "👀 Cartões a revisar", ""];
     // Get table element.
@@ -24,6 +24,72 @@ function createDeckList() {
     table.appendChild(tbody);
 }
 
+// Build the table body.
+function buildTbody(rows, callback) {
+    // Get the decks table.
+    var table = document.getElementById("decks-table");
+    // Get the table body.
+    var tbody = table.children[1];
+        // Build rows.
+    for (var i = 0; i < rows.length; i++) {
+        // Create a new row.
+        var tr = document.createElement("tr");
+        // Add the new line in the body's table.
+        tbody.appendChild(tr);
+        // Add row id.
+        tr.id = "row_" + rows[i].id;
+        // Create the columns.
+        var td = [
+            document.createElement("td"), // Deck name.
+            document.createElement("td"), // New cards.
+            document.createElement("td"), // Cards to re-study.
+            document.createElement("td"), // Cards to review.
+            document.createElement("td"), // Settings.
+        ];
+        // Define classes array.
+        var className = [
+            "deck-name",
+            "new-cards",
+            "cards-to-re-study",
+            "cards-to-review",
+            "settings",
+        ];
+        // Add columns in the row and classes in the columns.
+        for (var j = 0; j < 5; j++) {
+            tr.appendChild(td[j]);
+            td[j].classList.add(className[j]);
+        }
+
+        // Create spans of cards number columns.
+        var spanNewCards = document.createElement("span");
+        var spanCardsToReStudy = document.createElement("span");
+        var spanCardsToReview = document.createElement("span");
+        // Create texts of spans.
+        var name = document.createTextNode(rows[i].name);
+        var newCards = document.createTextNode(0);
+        var cardsToReStudy = document.createTextNode(0);
+        var cardsToReview = document.createTextNode(0);
+        var settings = document.createElement("span");
+        settings.textContent = "🗑️"; // ⚙️
+        settings.setAttribute("onclick", "rmDeck('"+ rows[i].id +"')");
+        // Add texts in spans.
+        spanNewCards.appendChild(newCards);
+        spanCardsToReStudy.appendChild(cardsToReStudy);
+        spanCardsToReview.appendChild(cardsToReview);
+        // Add texts and spans in the columns.
+        td[0].appendChild(name);
+        td[1].appendChild(spanNewCards);
+        td[2].appendChild(spanCardsToReStudy);
+        td[3].appendChild(spanCardsToReview);
+        td[4].appendChild(settings);
+
+        callback("New");
+        callback("Re-study");
+        callback("Review");
+
+    }
+}
+
 // Add infos.
 function addInfos() {
     // Get elements.
@@ -46,7 +112,7 @@ function addRow(row) {
     tr.id = "row_" + row.id;
 
     // Create columns.
-    var cols = [
+    var td = [
         document.createElement("td"),
         document.createElement("td"),
         document.createElement("td"),
@@ -55,7 +121,7 @@ function addRow(row) {
     ];
 
     // Define column classes.
-    var classes = [
+    var className = [
         "deck-name",
         "new-cards",
         "cards-to-re-study",
@@ -65,8 +131,8 @@ function addRow(row) {
 
     // Add columns in the row and classes in the columns.
     for (var i = 0; i < 5; i++) {
-        tr.appendChild(cols[i]);
-        cols[i].classList.add(classes[i]);
+        tr.appendChild(td[i]);
+        td[i].classList.add(className[i]);
     }
 
     // Create spans of cards numbers.
@@ -80,7 +146,7 @@ function addRow(row) {
     var cardsToReStudy = document.createTextNode(0);
     var cardsToReview = document.createTextNode(0);
     var settings = document.createElement("span");
-    settings.textContent = "⚙️";
+    settings.textContent = "🗑️"; // ⚙️
     settings.setAttribute("onclick", "rmDeck('" + row.id + "')");
 
     // Add texts in the spans.
@@ -89,11 +155,11 @@ function addRow(row) {
     spanCardsToReview.appendChild(cardsToReview);
 
     // Add texts and spans in the de columns.
-    cols[0].appendChild(name);
-    cols[1].appendChild(spanNewCards);
-    cols[2].appendChild(spanCardsToReStudy);
-    cols[3].appendChild(spanCardsToReview);
-    cols[4].appendChild(settings);
+    td[0].appendChild(name);
+    td[1].appendChild(spanNewCards);
+    td[2].appendChild(spanCardsToReStudy);
+    td[3].appendChild(spanCardsToReview);
+    td[4].appendChild(settings);
 }
 
 // Remove row from decks table.
@@ -102,8 +168,8 @@ function rmRow(id) {
 }
 
 // Call this function(s) when body loads.
-function loadBody() {
-    selectDecks(fillDecksTable);
-    createDeckList();
+function onLoadBody() {
+    buildThead();
+    getDecks();
     addInfos();
 }

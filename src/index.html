@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="css/index.css">
 </head>
 
-<body onload="loadBody();">
+<body onload="onLoadBody();">
   <div id="content">
     <div id="navbar">
       <div id="logo">📚 Rebisyon</div>
@@ -49,26 +49,62 @@
   // Get ipc.
   const { ipcRenderer } = require("electron");
 
-  // Add event of click to add deck.
+  // Request decks list from database.
+  function getDecks() {
+    ipcRenderer.send("requestGetDecks");
+  }
+
+  // Receive decks list from database.
+  ipcRenderer.on("receiveGetDecks", (event, rows) => {
+    buildTbody(rows, getCardsNumber, getCardsNumber);
+  });
+
+  function getCardsNumber(deckId, state) {
+    ipcRenderer.send("requestGetCardsNumber", deckId, state);
+  }
+
+  ipcRenderer.on("receiveGetCardsNumber", (event, state, rows) => {
+    if (state == "New") {
+      for(var i = 0; i < rows.length; i++) {
+        var tr = document.getElementById("row_" + rows[i].idDeckFK);
+        var td = tr.children[1];
+        var span = td.children[0];
+        span.textContent = rows[i].count;
+      }
+    } else if (state == "Re-study") {
+      for(var i = 0; i < rows.length; i++) {
+        var tr = document.getElementById("row_" + rows[i].idDeckFK);
+        var td = tr.children[2];
+        var span = td.children[0];
+        span.textContent = rows[i].count;
+      }
+    } else if (state == "Review") {
+      for(var i = 0; i < rows.length; i++) {
+        var tr = document.getElementById("row_" + rows[i].idDeckFK);
+        var td = tr.children[3];
+        var span = td.children[0];
+        span.textContent = rows[i].count;
+      }
+    }
+  });
+
+  // Request deck add in the db.
   document.querySelector("#add-deck").addEventListener("click", (event) => {
     event.preventDefault();
     var name = "Baralho de teste";
     ipcRenderer.send("requestAddDeck", name);
   });
-  // Receive the result of add deck request.
-  ipcRenderer.on("receiveAddDeck", (event, row) => {
-    addRow(row);
-  });
 
-  // Function to remove a choosed deck.
+  // Receive deck add return.
+  ipcRenderer.on("receiveAddDeck", (event, row) => addRow(row));
+
+  // Request remove deck fom database.
   function rmDeck(deckId) {
       ipcRenderer.send("requestRmDeck", deckId);
   };
 
-  // Wait the call of backend to remove the row table.
-  ipcRenderer.on("receiveRmDeck", (event, id) => {
-    rmRow(id);
-  });
+  // Receive remove deck return.
+  ipcRenderer.on("receiveRmDeck", (event, id) => rmRow(id));
 
 
 </script>

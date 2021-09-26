@@ -8,13 +8,13 @@
   <link rel="stylesheet" href="css/index.css">
 </head>
 
-<body onload="onLoadBody();">
+<body onload="onLoadBody()">
   <div id="content">
     <div id="navbar">
       <div id="logo">📚 Rebisyon</div>
       <div id="menu">
         <div class="item selected">Baralhos</div>
-        <div class="item">Adicionar</div>
+        <div class="item" onclick="openFlashcardPage()">Adicionar</div>
         <div class="item">Painel</div>
         <div class="item">Estatísticas</div>
         <div class="item"><a href="pages/test.html">Sincronizar</a></div>
@@ -47,6 +47,11 @@
 <script>
   // Get ipc.
   const { ipcRenderer } = require("electron");
+
+  // To request to open the add flashcard page.
+  function openFlashcardPage() {
+    ipcRenderer.send("openFlashcardPage");
+  }
 
   // To request list of decks from the database.
   function getDks() {

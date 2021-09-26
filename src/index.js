@@ -10,6 +10,7 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 }
 
 let mainWindow;
+let flashcardWindow;
 
 const createWindow = () => {
   // Create the browser window.
@@ -112,3 +113,15 @@ ipcMain.on("rqtRmDk", (event, id) => {
     }
   });
 })
+
+ipcMain.on("openFlashcardPage", (event) => {
+  flashcardWindow = new BrowserWindow({
+    width: 600,
+    height: 400,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    }
+  });
+  flashcardWindow.loadFile(`${__dirname}/pages/flashcard_page.html`);
+});

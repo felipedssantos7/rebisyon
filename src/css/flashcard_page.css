@@ -1,0 +1,42 @@
+body {
+    background-color: #efefef;
+}
+
+#main {
+    padding: 15px 15px 0px 15px;
+}
+
+#main #front label, 
+#main #back label,
+#main #tags label {
+    display: inline-block;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+#main #front [contenteditable="true"], 
+#main #back [contenteditable="true"],
+#main #tags [contenteditable="true"] {
+    border: 1px solid grey;
+    background-color: white;
+    padding: 10px;
+    line-height: 1.5;
+    font-size: 18px;
+    outline: none;
+    margin-bottom: 10px;
+}
+
+#footer #add-flashcard-btn {
+    margin: 15px;
+    padding: 10px;
+    float: right;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}

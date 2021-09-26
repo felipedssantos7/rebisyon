@@ -1,6 +1,7 @@
 const electron = require('electron');
 const { app, BrowserWindow, ipcMain } = electron;
 const path = require('path');
+const prompt = require('electron-prompt');
 var sqlite3 = require('sqlite3').verbose();
 
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
@@ -75,15 +76,31 @@ ipcMain.on("rqtGetCdsNbr", (event, state) => {
 });
 
 ipcMain.on("rqtAddDk", (event, name) => {
-  database.addDk(db, name, function (err, rows) {
-    database.getLstDkId(db, function (err, rows) {
-      if(err == null) {
-        mainWindow.send("rcvAddDk", rows);
-      } else {
-        mainWindow.webContents.send("error");
-      }
-    })
-  });
+  prompt({
+    title: 'Nome do baralho',
+    label: 'Digite o nome do novo baralho:',
+    value: 'Novo baralho',
+    inputAttrs: {
+        type: 'text'
+    },
+    type: 'input'
+  })
+  .then((name) => {
+    if(name === null) {
+        console.log('user cancelled');
+    } else {
+      database.addDk(db, name, function () {
+        database.getLstDkId(db, function (err, rows) {
+          if(err == null) {
+            mainWindow.send("rcvAddDk", rows);
+          } else {
+            mainWindow.webContents.send("error");
+          }
+        });
+      });
+    }
+  })
+  .catch(console.error);
 });
 
 ipcMain.on("rqtRmDk", (event, id) => {

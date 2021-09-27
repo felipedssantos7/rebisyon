@@ -116,8 +116,8 @@ ipcMain.on("rqtRmDk", (event, id) => {
 
 ipcMain.on("openFlashcardPage", (event) => {
   flashcardWindow = new BrowserWindow({
-    width: 600,
-    height: 400,
+    width: 800,
+    height: 600,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,

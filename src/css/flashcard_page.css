@@ -2,8 +2,16 @@ body {
     background-color: #efefef;
 }
 
+#navbar #menu {
+    display: flex;
+    justify-content: left;
+    position: fixed;
+    top: 0;
+    width: 100%;
+}
+
 #main {
-    padding: 15px 15px 0px 15px;
+    padding: 40px 15px 0px 15px;
 }
 
 #main #front label, 

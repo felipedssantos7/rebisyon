@@ -46,8 +46,8 @@ defaultButtons("align-right", "fa fa-align-right", "justifyRight");
 defaultButtons("align-justify", "fa fa-align-justify", "justifyFull");
 defaultButtons("indent", "fa fa-indent", "indent");
 defaultButtons("outdent", "fa fa-outdent", "outdent");
-defaultButtons("horizontal-rule", "fas fa-horizontal-rule", "insertHorizontalRule");
-
+defaultButtons("horizontal-rule", "fa fa-horizontal-rule", "insertHorizontalRule");
+defaultButtons("eraser", "fa fa-eraser", "removeFormat");
 // Ícone pago.
 function createHorizontalRuleIcon() {
     $(".fa-horizontal-rule").append(document.createTextNode("—"));
@@ -69,6 +69,7 @@ function button(id, icon, func) {
 // Construção dos botões para invocar funções variadas.
 button("url", "fa fa-link", "setUrl()");
 button("checkbox", "fa fa-check-square", "addCheckbox()");
+button("quote", "fa fa-quote-left", "addQuote()");
 
 // Modelo de dropdown de cores.
 function ddColors(id, classes, iconClasses, contentClasses, contentId) {
@@ -459,7 +460,7 @@ function addEmoji(emoji) {
     document.execCommand('insertText', false, emoji);
 }
 
-function addCitation() {
+function addQuote() {
     var sel = document.getSelection();
     var new_quote = '<div class="quote">' + sel + '</div>';
     document.execCommand("insertHTML", false, new_quote);

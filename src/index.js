@@ -82,13 +82,13 @@ ipcMain.on("rqtAddDk", (event, name) => {
     label: 'Digite o nome do novo baralho:',
     value: 'Novo baralho',
     inputAttrs: {
-        type: 'text'
+      type: 'text'
     },
     type: 'input'
   })
   .then((name) => {
     if(name === null) {
-        console.log('user cancelled');
+      console.log('user cancelled');
     } else {
       database.addDk(db, name, function () {
         database.getLstDkId(db, function (err, rows) {
@@ -124,4 +124,24 @@ ipcMain.on("openFlashcardPage", (event) => {
     }
   });
   flashcardWindow.loadFile(`${__dirname}/pages/flashcard_page.html`);
+});
+
+ipcMain.on("rqtGetUrl", (event, sel) => {
+  prompt({
+    title: 'URL',
+    label: 'Digite uma URL:',
+    value: 'https://www.google.com.br',
+    inputAttrs: {
+        type: 'url'
+    },
+    type: 'input'
+  })
+  .then((url) => {
+    if(url === null) {
+      console.log('user cancelled');
+    } else {
+      flashcardWindow.send("rcvGetUrl", url);
+    }
+  })
+  .catch(console.error);
 });

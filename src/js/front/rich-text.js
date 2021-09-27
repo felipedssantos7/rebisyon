@@ -1,3 +1,6 @@
+// IPC.
+const { ipcRenderer } = require("electron");
+
 // Selected text.
 var selectedText = "";
 $("#texto").click(function() {
@@ -85,8 +88,8 @@ function ddColors(id, classes, iconClasses, contentClasses, contentId) {
 }
 
 // Construção dos dropdowns de cor do texto e de fundo.
-ddColors("dd-fore-color", "dd-clrs option", "fa fa-font i-font-color", "dd-clrs-cont", "table-fore-colors");
-ddColors("dd-back-color", "dd-clrs option", "fa fa-pencil-square", "dd-clrs-cont", "table-back-colors");
+ddColors("dd-fore-color", "dd-clrs option", "fa fa-font i-fore-color", "dd-clrs-cont", "table-fore-colors");
+ddColors("dd-back-color", "dd-clrs option", "fa fa-pencil-square i-back-color", "dd-clrs-cont", "table-back-colors");
 
 // Função de contrução do botão de alteração do tamanho da fonte.
 function ddFontSize(){
@@ -269,11 +272,15 @@ function format(command, value) {
 
 // Adição de URL.
 function setUrl() {
-    var sel = document.getSelection();
-    var url = prompt("Digite a URL:");
+    var sel = document.getSelection().toString();
+    ipcRenderer.send("rqtGetUrl", sel);
+}
+
+ipcRenderer.on("rcvGetUrl", (event, url) => {
+    var sel = document.getSelection().toString();
     var link = '<a href="' + url + '" target="_blank">' + sel + '</a>';
     document.execCommand("insertHTML", false, link);
-}
+});
 
 // Alteração do tamanho da fonte.
 function setFontSize(size) {

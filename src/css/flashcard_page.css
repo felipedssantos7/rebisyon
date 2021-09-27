@@ -173,8 +173,15 @@ ul, ol {
 
 /* Personal icons */
 
-.i-font-color {
+.i-fore-color {
     border-bottom: 3px solid red;
+    padding-bottom: 1.5px;
+    width: 17px;
+}
+
+.i-back-color {
+    border-bottom: 3px solid blue;
+    padding-bottom: 1.5px;
     width: 17px;
 }
 

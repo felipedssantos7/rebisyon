@@ -479,15 +479,42 @@ function addCitation() {
 function setQuoteSize() {
     var quotes = document.getElementsByClassName("quote");
     for(var i = 0; i < quotes.length; i++) {
-        if(quotes[i].scrollHeight > quotes[i].clientHeight) {
-            var height = quotes[i].scrollHeight;
-            quotes[i].style.height = height + "px";
+        var size = quotes[i].children[0].size;
+        if (size == 1) {
+            quotes[i].style.height = "10px";
+            quotes[i].style.padding = "2px 5px 6px 5px";
+            quotes[i].style.lineHeight = "10px";
+            quotes[i].style.borderLeftWidth = "3px";
+        } else if (size == 2) {
+            quotes[i].style.height = "15px";
+            quotes[i].style.padding = "2px 5px 6px 5px";
+            quotes[i].style.lineHeight = "15px";
+            quotes[i].style.borderLeftWidth = "3px";
+        } else if (size == 3) {
+            quotes[i].style.height = "20px";
+            quotes[i].style.padding = "2px 5px 6px 5px";
+            quotes[i].style.lineHeight = "20px";
+            quotes[i].style.borderLeftWidth = "3px";
+        } else if (size == 4) {
+            quotes[i].style.height = "20px";
+            quotes[i].style.padding = "4px 7.5px 8px 7.5px";
+            quotes[i].style.lineHeight = "20px";
+            quotes[i].style.borderLeftWidth = "4px";
+        } else if (size == 5) {
+            quotes[i].style.height = "30px";
+            quotes[i].style.padding = "4px 15px 6px 15px";
+            quotes[i].style.lineHeight = "30px";
+            quotes[i].style.borderLeftWidth = "4px";
+        } else if (size == 6) {
+            quotes[i].style.height = "50px";
+            quotes[i].style.padding = "4px 15px 8px 15px";
+            quotes[i].style.lineHeight = "50px";
+            quotes[i].style.borderLeftWidth = "5px";
         } else {
-            quotes[i].style.height = "25px";
-            if(quotes[i].scrollHeight > quotes[i].clientHeight) {
-                var height = quotes[i].scrollHeight;
-                quotes[i].style.height = height + "px";
-            }
+            quotes[i].style.height = "60px";
+            quotes[i].style.padding = "4px 20px 8px 20px";
+            quotes[i].style.lineHeight = "60px";
+            quotes[i].style.borderLeftWidth = "5px";
         }
     }
 }

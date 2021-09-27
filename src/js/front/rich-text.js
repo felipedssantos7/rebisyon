@@ -1,6 +1,3 @@
-// IPC.
-const { ipcRenderer } = require("electron");
-
 // Selected text.
 var selectedText = "";
 $("#texto").click(function() {

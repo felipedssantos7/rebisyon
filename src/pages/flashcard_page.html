@@ -12,7 +12,7 @@
     <script src="../js/front/jquery-ui.js"></script>
 
   </head>
-  <body>
+  <body onload="onLoadBody()">
     <div id="content">
       <div id="navbar">
         <div id="menu">
@@ -64,8 +64,15 @@
       </div>
     </div>
       <div id="footer">
+        <button id="cloze-flashcard-btn" onclick="clozeWindow()">Fechar</button>
+        <select id="choose-deck"></select>
+        <button id="history-flashcard-btn">Histórico</button>
         <button id="add-flashcard-btn">Adicionar</button>
     </div>
   </body>
+  <script>
+    const { ipcRenderer } = require("electron");
+  </script>
   <script src="../js/front/rich-text.js"></script>
+  <script src="../js/front/flashcard_page.js"></script>
 </html>

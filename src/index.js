@@ -15,6 +15,7 @@ let flashcardWindow;
 const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
+    title: "📚 Rebisyon",
     width: 800,
     height: 600,
     webPreferences: {
@@ -57,9 +58,14 @@ var db = new sqlite3.Database(dbPath);
 const database = require('./js/back/db.js');
 
 ipcMain.on("rqtGetDks", (event) => {
+  var url = event["sender"]["getURL"]();
   database.getDks(db, function (err, rows)  {
     if(err == null) {
-      mainWindow.webContents.send("rcvGetDks", rows);
+      if (url == `file://${__dirname}/index.html`) {
+        mainWindow.webContents.send("rcvGetDks", rows);
+      } else if (url == `file://${__dirname}/pages/flashcard_page.html`) {
+        flashcardWindow.webContents.send("rcvGetDks", rows);
+      }
     } else {
       mainWindow.webContents.send("error");
     }
@@ -144,4 +150,11 @@ ipcMain.on("rqtGetUrl", (event, sel) => {
     }
   })
   .catch(console.error);
+});
+
+ipcMain.on("rqtClozeWindow", (event) => {
+  var url = event["sender"]["getURL"]();
+  if (url == `file://${__dirname}/pages/flashcard_page.html`) {
+    flashcardWindow.close();
+  }
 });

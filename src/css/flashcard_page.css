@@ -272,18 +272,45 @@ input[type="file"] {
 /* Footer */
 
 #footer {
+    display: flex;
+    justify-content: right;
     background-color: #efefef;
     position: fixed;
     bottom: 0;
     width: 100%;
 }
 
-#footer #add-flashcard-btn {
-    margin: 15px;
+#footer #cloze-flashcard-btn, 
+#footer #history-flashcard-btn, 
+#footer #add-flashcard-btn, 
+#footer #choose-deck {
+    margin: 15px 15px 15px 0px;
     padding: 10px;
-    float: right;
     font-size: 16px;
     cursor: pointer;
+}
+#footer #cloze-flashcard-btn {
+    margin-left: 15px;
+}
+
+#footer #add-flashcard-btn {
+    margin-right: 15px;
+}
+
+#footer #choose-deck {
+    width: 100%;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background: url("../assets/images/select.png") no-repeat right #ddd;
+    background-position: right 10px center;
+    background-color: #efefef;
+    height: 42px;
+    border-radius: 2.5px;
+}
+
+#choose-deck::-ms-expand {
+    display: none;
 }
 
 /* Other classes */

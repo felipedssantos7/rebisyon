@@ -21,7 +21,7 @@ function enableScrolling(){
 // Modelo de botão padrão de formatação.
 function defaultButtons(id, icon, format) {
     var button = document.getElementById(id);
-    button.classList.add("opt");
+    button.classList.add("option");
     button.setAttribute("onclick", "format('" + format + "')");
     var i = document.createElement("i");
     i.classList = icon;
@@ -56,7 +56,7 @@ createHorizontalRuleIcon();
 // Modelo de botão para invocar funções variadas.
 function button(id, icon, func) {
     var button = document.getElementById(id);
-    button.classList.add("opt");
+    button.classList.add("option");
     button.setAttribute("onclick", func);
     var i = document.createElement("i");
     i.classList = icon;
@@ -68,7 +68,7 @@ button("url", "fa fa-link", "setUrl()");
 button("checkbox", "fa fa-check-square", "addCheckbox()");
 
 // Modelo de dropdown de cores.
-function dropdownColors(id, classes, iconClasses, contentClasses, contentId) {
+function ddColors(id, classes, iconClasses, contentClasses, contentId) {
     var button = document.getElementById(id);
     button.classList = classes;
     var divIcon = document.createElement("div");
@@ -85,13 +85,13 @@ function dropdownColors(id, classes, iconClasses, contentClasses, contentId) {
 }
 
 // Construção dos dropdowns de cor do texto e de fundo.
-dropdownColors("dd-fore-color", "dd-colors opt", "fa fa-font i-font-color", "dd-colors-content", "table-fore-colors");
-dropdownColors("dd-back-color", "dd-colors opt", "fa fa-pencil-square", "dd-colors-content", "table-back-colors");
+ddColors("dd-fore-color", "dd-clrs option", "fa fa-font i-font-color", "dd-clrs-cont", "table-fore-colors");
+ddColors("dd-back-color", "dd-clrs option", "fa fa-pencil-square", "dd-clrs-cont", "table-back-colors");
 
 // Função de contrução do botão de alteração do tamanho da fonte.
-function dropdownFontSize(){
+function ddFontSize(){
     var button = document.getElementById("font-size");
-    button.classList = "dropdown opt";
+    button.classList = "dd-def option";
     var smallT = document.createElement("span");
     smallT.classList = "i-small-t";
     smallT.appendChild(document.createTextNode("T"));
@@ -101,7 +101,7 @@ function dropdownFontSize(){
     bigT.appendChild(document.createTextNode("T"));
     button.appendChild(bigT);
     var divContent = document.createElement("div");
-    divContent.classList = "dropdown-content";
+    divContent.classList = "dd-def-cont";
     divContent.style.width = "270px";
 
     // Opções.
@@ -133,21 +133,29 @@ function dropdownFontSize(){
 }
 
 // Contrução do botão de alteração do tamanho da fonte.
-dropdownFontSize();
+ddFontSize();
 
 // Função de contrução do botão de alteração do família da fonte.
-function dropdownFontFamily(){
+function ddFontFamily(){
 
-    var fontFamilyList = ["Arial", "Courier New", "Impact", "monospace", "Open Sans", "Times New Roman", "Ubuntu"];
+    var fontFamilyList = [
+        "Arial", 
+        "Courier New", 
+        "Impact", 
+        "monospace", 
+        "Open Sans", 
+        "Times New Roman", 
+        "Ubuntu",
+    ];
 
     var button = document.getElementById("font-family");
-    button.classList = "dropdown opt";
+    button.classList = "dd-def option";
     var imgF = document.createElement("img");
     imgF.classList = "i-font-family";
     imgF.src = "../icons/icon-choose-font.png";
     button.appendChild(imgF);
     var divContent = document.createElement("div");
-    divContent.classList = "dropdown-content";
+    divContent.classList = "dd-def-cont";
     divContent.style.minWidth = "190px";
 
     // Opções.
@@ -179,17 +187,17 @@ function dropdownFontFamily(){
 }
 
 // Contrução do botão de alteração da familía da fonte.
-dropdownFontFamily();
+ddFontFamily();
 
 // Função de contrução do botão de adição de cabeçalhos.
-function dropdownHeading(){
+function ddHeading(){
     var button = document.getElementById("heading");
-    button.classList = "dropdown opt";
+    button.classList = "dd-def option";
     var icon = document.createElement("i");
     icon.classList = "fa fa-header";
     button.appendChild(icon);
     var divContent = document.createElement("div");
-    divContent.classList = "dropdown-content";
+    divContent.classList = "dd-def-cont";
     divContent.style.minWidth = "200px";
 
     // Opções.
@@ -208,12 +216,12 @@ function dropdownHeading(){
 }
 
 // Contrução do botão de adição de cabeçalho.
-dropdownHeading();
+ddHeading();
 
 // Função de contrução do botão de adição de imagem e GIF.
 function buttonImage() {
     var button = document.getElementById("image");
-    button.classList = "opt";
+    button.classList = "option";
     button.style.padding = "0px";
     var label = document.createElement("label");
     label.classList = "i-image";
@@ -235,7 +243,7 @@ buttonImage();
 // Função de construção do botão da tabela de emojis.
 function buttonEmojis() {
     var button = document.getElementById("emojis");
-    button.setAttribute("class", "dropdown-emojis opt");
+    button.setAttribute("class", "dd-emjs option");
     var divIcon = document.createElement("div");
     button.appendChild(divIcon);
     var icon = document.createElement("i");
@@ -243,7 +251,7 @@ function buttonEmojis() {
     icon.setAttribute("class", "fa fa-smile-o");
     var divContent = document.createElement("div");
     button.appendChild(divContent);
-    divContent.setAttribute("class", "dropdown-emojis-content");
+    divContent.setAttribute("class", "dd-emjs-cont");
     var table = document.createElement("table");
     divContent.appendChild(table);
     table.setAttribute("id", "table-emojis");
@@ -289,12 +297,11 @@ function addHeading(h) {
 function addCheckbox() {
     var sel = document.getSelection().toString();
     sel = sel.split("\n");
-    for (var i = 0; i < sel.length; i++) {
-        var checkbox = "";
-        if (i != 0) checkbox += "<br>";
-        checkbox += "<input type='checkbox'> " + sel[i];
-        document.execCommand("insertHTML", false, checkbox);
+    var checkbox = "";
+    for(var i = 0; i < sel.length; i++) {
+        checkbox += `<input type='checkbox'> ${sel[i]}<br>`;
     }
+    document.execCommand('insertHTML', false, checkbox);
 }
 
 // Adição de imagem.
@@ -356,7 +363,7 @@ function tableColors(id, ground) {
             var cell = row.insertCell(j);
             var button = document.createElement("button");
             button.setAttribute("onclick", "format('" + ground + "', '#" + colors[j + ctrl] + "')");
-            button.classList.add("button-color");
+            button.classList.add("btn-clr");
             button.style.backgroundColor = "#" + colors[j + ctrl];
             cell.appendChild(button);
         }

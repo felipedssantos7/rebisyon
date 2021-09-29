@@ -60,7 +60,7 @@
 
   // To receive list of decks from the database.
   ipcRenderer.on("rcvGetDks", (event, rows) => {
-    buildTbody(rows, getCardsNumber, getCardsNumber);
+    buildTbody(rows, getCardsNumber);
   });
 
   // To request number of cards from the database.

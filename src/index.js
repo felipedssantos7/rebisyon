@@ -112,10 +112,16 @@ ipcMain.on("rqtAddDk", (event, name) => {
 
 ipcMain.on("rqtRmDk", (event, id) => {
   database.rmDk(db, id, function (err) {
-    if(err == null) {
-      mainWindow.webContents.send("rcvRmDk", id);
+    if (err == null) {
+      database.rmCd(db, id, function (err) {
+        if(err == null) {
+          mainWindow.webContents.send("rcvRmDk", id);
+        } else {
+          mainWindow.webContents.send("error");
+        }
+      });
     } else {
-      mainWindow.webContents.send("error");
+
     }
   });
 })
@@ -162,5 +168,12 @@ ipcMain.on("rqtClozeWindow", (event) => {
 ipcMain.on("rqtAddCard", (event, front, back, tags, idDeckFK) => {
   database.addCard(db, front, back, tags, idDeckFK, function () {
     flashcardWindow.send("rcvAddCard");
+    database.getDks(db, function (err, rows)  {
+      if(err == null) {
+        mainWindow.webContents.send("rcvGetDks", rows);
+      } else {
+        mainWindow.webContents.send("error");
+      }
+    });
   });
 });

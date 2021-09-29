@@ -27,8 +27,21 @@ function addCard() {
 }
 
 ipcRenderer.on("rcvAddCard", (event) => {
-    alert("Cartão adicionado com sucesso!");
+    var popup = document.getElementById("popup");
+    popup.style.opacity = "1";
+    popup.style.display = "block";
+    setTimeout(function () {
+        popup.style.display = "none";
+    }, 5000);
 });
+
+function closePopup() {
+    var popup = document.getElementById("popup");
+    popup.style.opacity = "0";
+    setTimeout(function () {
+        popup.style.display = "none";
+    }, 600);
+}
 
 function onLoadBody() {
     getDks();

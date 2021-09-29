@@ -30,7 +30,9 @@ function buildTbody(rows, callback) {
     var table = document.getElementById("decks-table");
     // Get the table body.
     var tbody = table.children[1];
-        // Build rows.
+    // Clear old tbody.
+    tbody.innerHTML = "";
+    // Build rows.
     for (var i = 0; i < rows.length; i++) {
         // Create a new row.
         var tr = document.createElement("tr");
@@ -165,7 +167,9 @@ function addRow(row) {
 // Add number of cards.
 function addCdsNmb(rows, col) {
     for(var i = 0; i < rows.length; i++) {
+        console.log("IdDeckFK: " + rows[i].idDeckFK + " | Col: " + col);
         var tr = document.getElementById("row_" + rows[i].idDeckFK);
+        console.log(tr.innerHTML);
         var td = tr.children[col];
         var span = td.children[0];
         span.textContent = rows[i].count;

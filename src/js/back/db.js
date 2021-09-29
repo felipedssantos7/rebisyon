@@ -32,6 +32,11 @@ function rmDk(db, id, callback) {
   db.run(sql, [id], callback);
 }
 
+function rmCd(db, idDeckFK, callback) {
+  var sql = "DELETE FROM `card` WHERE `idDeckFK` = ?";
+  db.run(sql, [idDeckFK], callback);
+};
+
 // To add a new card.
 function addCard(db, front, back, tags, idDeckFK, callback) {
   var sql = "INSERT INTO `card` (`front`, `back`, `tags`, `state`, `idDeckFK`) VALUES (?, ?, ?, 'New', ?)";
@@ -45,5 +50,6 @@ module.exports = {
   addDk, 
   getLstDkId, 
   rmDk,
-  addCard
+  rmCd,
+  addCard,
 };

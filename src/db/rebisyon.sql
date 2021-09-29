@@ -3,6 +3,10 @@
 
 /* Commands to create the database scheme. */
 
+/* Drop tables. */
+DROP TABLE `deck`;
+DROP TABLE `card`;
+
 -- Create tables.
 CREATE TABLE `deck` (
     `id` INTEGER PRIMARY KEY AUTOINCREMENT, 
@@ -12,14 +16,11 @@ CREATE TABLE `card` (
     `id` INTEGER PRIMARY KEY AUTOINCREMENT, 
     `front` TEXT NOT NULL, 
     `back` TEXT,
+    `tags` TEXT,
     `state` TEXT,
     `idDeckFK`INTEGER NOT NULL,
     CONSTRAINT `cardIdDeckFK` FOREIGN KEY (`idDeckFK`) REFERENCES `deck` (`id`)
 );
-
-/* Drop tables. */
-DROP TABLE `deck`;
-DROP TABLE `card`;
 
 /* Insert data. */
 
@@ -220,6 +221,7 @@ SELECT * FROM `card` WHERE `idDeckFK` = 1;
 
 /* Remove data. */
 -- Delete deck.
+DELETE FROM `deck` WHERE `name` = "Deck test";
 DELETE FROM `deck` WHERE `name` = "Deck test";
 DELETE FROM `card` WHERE `id` != 0;
 

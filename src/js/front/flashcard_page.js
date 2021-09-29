@@ -17,6 +17,10 @@ function clozeWindow() {
     ipcRenderer.send("rqtClozeWindow");
 }
 
+function addCard() {
+    ipcRenderer.send("rqtAddCard");
+}
+
 function onLoadBody() {
     getDks();
 }

@@ -158,3 +158,7 @@ ipcMain.on("rqtClozeWindow", (event) => {
     flashcardWindow.close();
   }
 });
+
+ipcMain.on("rqtAddCard", (event) => {
+  console.log("Ok");
+});

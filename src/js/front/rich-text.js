@@ -313,15 +313,19 @@ function addCheckbox() {
 function addImage(event) {
     var reader = new FileReader();
     reader.onload = function () {
-        var br = document.createElement("br");
-        var texto = document.getElementById("texto");
-        var img = document.createElement("img");
-        texto.appendChild(br);
-        texto.appendChild(img);
-        img.src = reader.result;
-        img.style.width = "50%";
-        img.style.margin = "5px 0px";
-        img.classList.add("image");
+        var sel = document.getSelection();
+        var id = sel.getRangeAt(0).commonAncestorContainer.id;
+        if (id == "front-card" || id == "back-card") {
+            var parent = document.getElementById(id);
+            var img = document.createElement("img");
+            parent.appendChild(img);
+            img.src = reader.result;
+            img.style.width = "75%";
+            img.style.margin = "5px 0px";
+            img.classList.add("image");
+        } else {
+            alert("Lembre-se de selecionar o campo de texto onde quer adicionar a imagem! É na pergunta ou na resposta?");
+        }
     }
     reader.readAsDataURL(event.target.files[0]);
 }
@@ -336,8 +340,18 @@ $(document).on("click", ".image", function (e) {
     $(".ui-wrapper").css("display", "inline-block");
 });
 
-// Bloqueio de redimensionamento de imagem.
-$("#texto").click(function(e) {
+// Bloqueio de redimensionamento de imagem no campo de pergunta.
+$("#front-card").click(function(e) {
+    if(e.target.id !== "resizable") {
+        $("#resizable").resizable("destroy");
+        $("#resizable").removeAttr("id");
+        $(".image").css("border", "1px solid transparent");
+        $(".image").css("display", "inline");
+    }
+});
+
+// Bloqueio de redimensionamento de imagem no campo de resposta.
+$("#back-card").click(function(e) {
     if(e.target.id !== "resizable") {
         $("#resizable").resizable("destroy");
         $("#resizable").removeAttr("id");

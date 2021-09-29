@@ -266,6 +266,16 @@ input[type="file"] {
     line-height: 1.5;
     font-size: 18px;
     outline: none;
+    margin-bottom: 5px;
+}
+
+#main #front .keep-text label, 
+#main #back .keep-text label, 
+#main #tags .keep-text label {
+    position: relative;
+    top: -1px;
+    font-size: 15px;
+    font-weight: normal;
     margin-bottom: 10px;
 }
 
@@ -288,6 +298,7 @@ input[type="file"] {
     padding: 10px;
     font-size: 16px;
     cursor: pointer;
+    user-select: none;
 }
 #footer #cloze-flashcard-btn {
     margin-left: 15px;

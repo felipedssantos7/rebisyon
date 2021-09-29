@@ -159,6 +159,8 @@ ipcMain.on("rqtClozeWindow", (event) => {
   }
 });
 
-ipcMain.on("rqtAddCard", (event) => {
-  console.log("Ok");
+ipcMain.on("rqtAddCard", (event, front, back, tags, idDeckFK) => {
+  database.addCard(db, front, back, tags, idDeckFK, function () {
+    flashcardWindow.send("rcvAddCard");
+  });
 });

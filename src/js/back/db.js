@@ -32,11 +32,18 @@ function rmDk(db, id, callback) {
   db.run(sql, [id], callback);
 }
 
+// To add a new card.
+function addCard(db, front, back, tags, idDeckFK, callback) {
+  var sql = "INSERT INTO `card` (`front`, `back`, `tags`, `state`, `idDeckFK`) VALUES (?, ?, ?, 'New', ?)";
+  db.run(sql, [front, back, tags, idDeckFK], callback);
+}
+
 // To export the database functions.
 module.exports = {
   getDks, 
   getCdsCnt, 
   addDk, 
   getLstDkId, 
-  rmDk
+  rmDk,
+  addCard
 };

@@ -205,6 +205,8 @@ INSERT INTO `card` (`front`, `back`, `state`, `idDeckFK`) VALUES
     ("99", "Back side", "Review", 3), 
     ("100", "Back side", "Review", 3);
 
+INSERT INTO `card` (`front`, `back`, `state`, `idDeckFK`) VALUES ("F", "B", "New", 1);
+
 /* Updates. */
 UPDATE `deck` SET `id` = 1 WHERE `id` = 1;
 UPDATE `deck` SET `id` = 2 WHERE `id` = 2;
@@ -220,3 +222,6 @@ SELECT * FROM `card` WHERE `idDeckFK` = 1;
 -- Delete deck.
 DELETE FROM `deck` WHERE `name` = "Deck test";
 DELETE FROM `card` WHERE `id` != 0;
+
+/* Add column */
+ALTER TABLE `card` ADD `tags` TEXT;

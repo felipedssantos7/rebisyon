@@ -34,5 +34,5 @@ Uma aplicação desktop para revisão ativa e espaçada de flashcards.
   - [x]  Adição de citação (1 estilo disponível).
   - [x]  Remoção das formatações (remove a maior parte da formatações).
 - [x] Nos campos de pergunta e resposta, podem ser adicionadas imagens e GIFs redimensionáveis.
-# Screenshots (desatualizada)
+# Screenshots
 <a href="https://github.com/felipesantosds/rebisyon/blob/main/screenshots/README.md">Ver screenshots</a>

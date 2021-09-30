@@ -34,8 +34,36 @@ Uma aplicação desktop para revisão ativa e espaçada de flashcards.
   - [x]  Adição de citação (1 estilo disponível).
   - [x]  Remoção das formatações (remove a maior parte da formatações).
 - [x] Nos campos de pergunta e resposta, podem ser adicionadas imagens e GIFs redimensionáveis.
-# Screenshots
-<video width="1080" controls>
-  <source src="./src/screenshots/estado_atual_6.mp4" type="video/mp4">
-  Your browser does not support the video tag.
-</video>
+# Screenshots (desatualizada)
+<img src="screenshots/1.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/2.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/3.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/4.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/5.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/6.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/7.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/8.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/9.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/10.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/11.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/12.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/13.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/14.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/15.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/16.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/17.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/18.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/19.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/20.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/21.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/22.png" alt="Imagem do estado atual do software.">v
+<img src="screenshots/23.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/24.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/25.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/26.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/27.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/28.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/29.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/30.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/31.png" alt="Imagem do estado atual do software.">
+<img src="screenshots/estado_atual_6.gif" alt="Imagem do estado atual do software.">

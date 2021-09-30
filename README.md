@@ -1,7 +1,5 @@
 # Rebisyon
 Uma aplicação desktop para revisão ativa e espaçada de flashcards.
-# Screenshots (desatualizada)
-<img src="src/screenshots/estado_atual_5.gif" alt="Imagem do estado atual do software.">
 # Funcionalidades
 - [x] Visualizar baralhos cadastrados.
 - [x] Visualizar quantidade de cartões a serem aprendidos, re-estudados e revisados de cada baralho.
@@ -36,3 +34,5 @@ Uma aplicação desktop para revisão ativa e espaçada de flashcards.
   - [x]  Adição de citação (1 estilo disponível).
   - [x]  Remoção das formatações (remove a maior parte da formatações).
 - [x] Nos campos de pergunta e resposta, podem ser adicionadas imagens e GIFs redimensionáveis.
+# Screenshots (desatualizada)
+<img src="src/screenshots/estado_atual_5.gif" alt="Imagem do estado atual do software.">

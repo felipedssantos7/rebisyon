@@ -34,5 +34,8 @@ Uma aplicação desktop para revisão ativa e espaçada de flashcards.
   - [x]  Adição de citação (1 estilo disponível).
   - [x]  Remoção das formatações (remove a maior parte da formatações).
 - [x] Nos campos de pergunta e resposta, podem ser adicionadas imagens e GIFs redimensionáveis.
-# Screenshots (desatualizada)
-<img src="src/screenshots/estado_atual_5.gif" alt="Imagem do estado atual do software.">
+# Screenshots
+<video width="1080" controls>
+  <source src="./src/screenshots/estado_atual_6.mp4" type="video/mp4">
+  Your browser does not support the video tag.
+</video>

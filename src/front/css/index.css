@@ -1,0 +1,152 @@
+#navbar {
+  display: flex;
+  justify-content: space-between;
+  background-color: dodgerblue;
+  color: white;
+  text-shadow: 1px 1px 1px rgb(51, 51, 51);
+  border-bottom: 1px solid grey;
+  box-shadow: 0px 0px 5px 0.5px rgb(51, 51, 51);
+}
+
+#navbar #logo {
+  padding: 10px 5px;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+  cursor: default;
+  user-select: none;
+}
+
+#navbar #menu {
+  right: 0px;
+  display: flex;
+}
+
+#navbar #menu .item {
+  padding: 10px;
+  font-size: 15px;
+  border: 0px solid lightgrey;
+  user-select: none;
+}
+
+#navbar #menu .item a {
+  text-decoration: none;
+  color: white;
+}
+
+#navbar #menu .item:last-child {
+  border-right: 0px solid transparent;
+}
+
+#navbar #menu .item:hover {
+  background-color: rgb(85, 170, 255);
+  cursor: pointer;
+}
+
+#navbar #menu .selected {
+  background-color: rgb(0, 100, 201);
+}
+
+#main #decks-table, th, td {
+  border-collapse: collapse;
+  margin: 10px auto;
+  padding: 5px;
+}
+
+#main #decks-table {
+  margin: 50px auto;
+}
+
+#main #decks-table thead tr th {
+  border-left: 1px solid lightgrey;
+  background-color: rgb(240, 240, 240);
+  padding: 10px;
+  user-select: none;
+}
+
+#main #decks-table thead tr th:first-child {
+  border-left: 0px solid transparent;
+}
+
+#main #decks-table thead tr th:last-child {
+  border: 0px solid transparent;
+  background-color: transparent;
+}
+
+#main #decks-table thead tr, 
+#main #decks-table tbody tr {
+  border-bottom: 1px solid lightgrey;
+}
+
+#main #decks-table tbody tr td:first-child:hover {
+  background-color: lightgrey;
+  cursor: pointer;
+}
+
+#decks-table tbody tr:hover td:last-child {
+  background-color: white;
+}
+
+#main #decks-table thead tr th:last-child, 
+#main #decks-table tbody td:last-child {
+  border-bottom: 1px solid white;
+}
+
+#main #decks-table tbody tr td {
+  text-align: center;
+}
+
+#main #decks-table tbody tr td:first-child {
+  text-align: left;
+}
+
+#main #decks-table tbody tr .new-cards span, 
+#main #decks-table tbody tr .cards-to-re-study span, 
+#main #decks-table tbody tr .cards-to-review span {
+  display: inline-block;
+  font-size: 12.5px;
+  padding: 2.5px 5px;
+  color: white;
+  border-radius: 7px;
+  min-width: 20px;
+}
+
+#main #decks-table tbody tr .new-cards span {
+  background-color: rgb(75, 183, 255);
+}
+
+#main #decks-table tbody tr .cards-to-re-study span {
+  background-color: rgb(255, 140, 0);
+}
+
+#main #decks-table tbody tr .cards-to-review span {
+  background-color: rgb(0, 128, 0);
+}
+
+#main #decks-table tbody tr .settings {
+  cursor: pointer;
+  user-select: none;
+  width: 25px;
+  height: 25px;
+}
+
+#main #decks-table tbody tr .settings:hover {
+  font-size: 20px;
+}
+
+#main #info {
+  text-align: center;
+  line-height: 1.5;
+}
+
+#footer {
+  position: fixed;
+  bottom: 0px;
+  margin-bottom: 25px;
+  width: 100%;
+  text-align: center;
+}
+
+#footer button {
+  padding: 5px;
+  cursor: pointer;
+  user-select: none;
+}

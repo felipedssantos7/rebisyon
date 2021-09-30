@@ -25,7 +25,7 @@ const createWindow = () => {
   });
 
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, 'index.html'));
+  mainWindow.loadFile(path.join(__dirname, 'front/pages/decks_page.html'));
 };
 
 // This method will be called when Electron has finished
@@ -53,17 +53,17 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 
-const dbPath = path.resolve(__dirname, 'db/rebisyon.db')
+const dbPath = path.resolve(__dirname, 'back/db/rebisyon.db')
 var db = new sqlite3.Database(dbPath);
-const database = require('./js/back/db.js');
+const database = require(`${__dirname}/back/js/db.js`);
 
 ipcMain.on("rqtGetDks", (event) => {
   var url = event["sender"]["getURL"]();
   database.getDks(db, function (err, rows)  {
     if(err == null) {
-      if (url == `file://${__dirname}/index.html`) {
+      if (url == `file://${__dirname}/front/pages/decks_page.html`) {
         mainWindow.webContents.send("rcvGetDks", rows);
-      } else if (url == `file://${__dirname}/pages/flashcard_page.html`) {
+      } else if (url == `file://${__dirname}/front/pages/flashcards_page.html`) {
         flashcardWindow.webContents.send("rcvGetDks", rows);
       }
     } else {
@@ -135,7 +135,7 @@ ipcMain.on("openFlashcardPage", (event) => {
       contextIsolation: false,
     }
   });
-  flashcardWindow.loadFile(`${__dirname}/pages/flashcard_page.html`);
+  flashcardWindow.loadFile(`${__dirname}/front/pages/flashcards_page.html`);
 });
 
 ipcMain.on("rqtGetUrl", (event, sel) => {
@@ -160,7 +160,7 @@ ipcMain.on("rqtGetUrl", (event, sel) => {
 
 ipcMain.on("rqtClozeWindow", (event) => {
   var url = event["sender"]["getURL"]();
-  if (url == `file://${__dirname}/pages/flashcard_page.html`) {
+  if (url == `file://${__dirname}/front/pages/flashcards_page.html`) {
     flashcardWindow.close();
   }
 });

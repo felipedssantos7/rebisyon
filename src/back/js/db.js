@@ -42,6 +42,14 @@ function getDks(db, callback) {
     var sql = "INSERT INTO `card` (`front`, `back`, `tags`, `state`, `idDeckFK`) VALUES (?, ?, ?, 'New', ?)";
     db.run(sql, [front, back, tags, idDeckFK], callback);
   }
+
+  // To get the cards of a specified deck.
+  function getCds(db, idDk, callback) {
+    var sql = "SELECT * FROM `card` WHERE `idDeckFK` = ?";
+    db.all(sql, [idDk], function (err, rows) {
+      callback(err, rows);
+    });
+  };
   
   // To export the database functions.
   module.exports = {
@@ -52,4 +60,5 @@ function getDks(db, callback) {
     rmDk,
     rmCd,
     addCard,
+    getCds,
   };

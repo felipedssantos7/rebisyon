@@ -11,17 +11,17 @@ if (require('electron-squirrel-startup')) { // eslint-disable-line global-requir
 
 let mainWindow;
 let flashcardWindow;
+let reviewWindow;
 
 const createWindow = () => {
   // Create the browser window.
   mainWindow = new BrowserWindow({
-    title: "📚 Rebisyon",
     width: 800,
     height: 600,
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-    }
+    },
   });
 
   // and load the index.html of the app.
@@ -133,7 +133,7 @@ ipcMain.on("openFlashcardPage", (event) => {
     webPreferences: {
       nodeIntegration: true,
       contextIsolation: false,
-    }
+    },
   });
   flashcardWindow.loadFile(`${__dirname}/front/pages/flashcards_page.html`);
 });
@@ -175,5 +175,28 @@ ipcMain.on("rqtAddCard", (event, front, back, tags, idDeckFK) => {
         mainWindow.webContents.send("error");
       }
     });
+  });
+});
+
+ipcMain.on("openRvwPg", (event, idDk) => {
+  reviewWindow = new BrowserWindow({
+    width: 800,
+    heigth: 600,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: false,
+    },
+  });
+  reviewWindow.loadFile(`${__dirname}/front/pages/review_page.html`);
+  reviewWindow.webContents.send("rcvIdDk", idDk);
+});
+
+ipcMain.on("rqtGetCds", (event, idDk) => {
+  database.getCds(db, idDk, function (err, rows) {
+    if (err == null) {
+      reviewWindow.webContents.send("rcvGetCds", rows);
+    } else {
+      reviewWindow.webContents.send("error");
+    }
   });
 });

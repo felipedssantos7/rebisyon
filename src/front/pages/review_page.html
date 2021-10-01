@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Página de revisão</title>
+    </head>
+    <body>
+        <div id="flashcards-area"></div>
+    </body>
+    <script>
+        const { ipcRenderer } = require("electron");
+        const idDk = 1;
+        ipcRenderer.on("rcvIdDk", (event, idDk) => {
+            alert(idDk);
+            idDk = 1;
+        });
+        ipcRenderer.send("rqtGetCds", idDk);
+        ipcRenderer.on("rcvGetCds", (event, rows) => {
+            var fshCdArea = document.getElementById("flashcards-area");
+            for (var i = 0; i < rows.length; i++) {
+                var card = document.createElement("div");
+                fshCdArea.appendChild(card);
+                card.classList.add("card");
+                card.style.border = "1px solid black";
+                card.style.margin = "5px 0px";
+                card.style.padding = "5px";
+                var front = document.createElement("div");
+                card.appendChild(front);
+                var question = document.createTextNode(rows[i].front);
+                front.appendChild(question);
+                front.appendChild(document.createTextNode(" "));
+                var answer = document.createTextNode(rows[i].back);
+                front.appendChild(answer);
+            }
+        });
+        ipcRenderer.on("error", (event) => {
+            alert("Ocorreu um erro inesperado! Por favor, feche esta janela e abra novamente!");
+        });
+    </script>
+</html>

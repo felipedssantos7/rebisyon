@@ -80,6 +80,7 @@ function buildTbody(rows, callback) {
         spanCardsToReview.appendChild(cardsToReview);
         // Add texts and spans in the columns.
         td[0].appendChild(name);
+        td[0].setAttribute("onclick", "openRvwPg(" + rows[i].id + ")");
         td[1].appendChild(spanNewCards);
         td[2].appendChild(spanCardsToReStudy);
         td[3].appendChild(spanCardsToReview);

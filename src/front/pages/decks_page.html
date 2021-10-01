@@ -101,6 +101,11 @@
     rmRow(id);
   });
 
+  // To open the review page.
+  function openRvwPg(idDk) {
+      ipcRenderer.send("openRvwPg", idDk);
+  }
+
   // To receive some error.
   ipcRenderer.on("error", (event) => {
     alert("An unexpected error has occurred! Please restart your Rebysion!");

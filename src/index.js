@@ -178,7 +178,9 @@ ipcMain.on("rqtAddCard", (event, front, back, tags, idDeckFK) => {
   });
 });
 
+var reviewPageDeckId = 0;
 ipcMain.on("openRvwPg", (event, idDk) => {
+  reviewPageDeckId = idDk;
   reviewWindow = new BrowserWindow({
     width: 800,
     heigth: 600,
@@ -188,11 +190,11 @@ ipcMain.on("openRvwPg", (event, idDk) => {
     },
   });
   reviewWindow.loadFile(`${__dirname}/front/pages/review_page.html`);
-  reviewWindow.webContents.send("rcvIdDk", idDk);
 });
 
-ipcMain.on("rqtGetCds", (event, idDk) => {
-  database.getCds(db, idDk, function (err, rows) {
+ipcMain.on("rqtGetCds", (event) => {
+  console.log(reviewPageDeckId);
+  database.getCds(db, reviewPageDeckId, function (err, rows) {
     if (err == null) {
       reviewWindow.webContents.send("rcvGetCds", rows);
     } else {

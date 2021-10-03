@@ -3,36 +3,73 @@
     <head>
         <meta charset="UTF-8">
         <title>Página de revisão</title>
+        <link rel="stylesheet" href="../css/review_page.css">
     </head>
-    <body>
-        <div id="flashcards-area"></div>
+    <body onload="onLoadBody()">
+        <div id="main">
+            <div id="card"></div>
+            <div class="row-btns">
+                <button onclick="onClickClose()">Fechar</button>
+                <button onclick="onClickBefore()">Anterior</button>
+                <button onclick="onClickShowAnswer()">Mostrar resposta</button>
+                <button onclick="onClickNext()">Próximo</button>
+                <button onclick="onClickNext()">Mais opções</button>
+            </div>
+        </div>
     </body>
     <script>
         const { ipcRenderer } = require("electron");
-        const idDk = 1;
-        ipcRenderer.on("rcvIdDk", (event, idDk) => {
-            alert(idDk);
-            idDk = 1;
-        });
-        ipcRenderer.send("rqtGetCds", idDk);
+        var flashcards = [];
+        var index = 0;
+        var card = document.getElementById("card");
+        
+        function onLoadBody() {
+            ipcRenderer.send("rqtGetCds");
+        }
+
         ipcRenderer.on("rcvGetCds", (event, rows) => {
-            var fshCdArea = document.getElementById("flashcards-area");
             for (var i = 0; i < rows.length; i++) {
-                var card = document.createElement("div");
-                fshCdArea.appendChild(card);
-                card.classList.add("card");
-                card.style.border = "1px solid black";
-                card.style.margin = "5px 0px";
-                card.style.padding = "5px";
-                var front = document.createElement("div");
-                card.appendChild(front);
-                var question = document.createTextNode(rows[i].front);
-                front.appendChild(question);
-                front.appendChild(document.createTextNode(" "));
-                var answer = document.createTextNode(rows[i].back);
-                front.appendChild(answer);
+                flashcards.push({
+                    "front": rows[i].front,
+                    "back": rows[i].back,
+                });
             }
+            buildCard();
         });
+
+        function buildCard() {
+            card.innerHTML = "";
+            var front = document.createElement("div");
+            card.appendChild(front);
+            front.classList.add("front");
+            var question = document.createTextNode(flashcards[index]["front"]);
+            front.appendChild(question);
+        }
+
+        function onClickNext() {
+            if (index < (flashcards.length - 1)) {
+                index++;
+                buildCard();
+            }
+        }
+
+        function onClickShowAnswer() {
+            var hr = document.createElement("hr");
+            card.appendChild(hr);
+            var back = document.createElement("div");
+            card.appendChild(back);
+            back.classList.add("back");
+            var answer = document.createTextNode(flashcards[index]["back"]);
+            back.appendChild(answer);
+        }
+
+        function onClickBefore() {
+            if (index > 0) {
+                index--;
+                buildCard();
+            }
+        }
+
         ipcRenderer.on("error", (event) => {
             alert("Ocorreu um erro inesperado! Por favor, feche esta janela e abra novamente!");
         });

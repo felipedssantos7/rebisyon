@@ -9,11 +9,18 @@
         <div id="main">
             <div id="card"></div>
             <div class="row-btns">
-                <button onclick="onClickClose()">Fechar</button>
-                <button onclick="onClickBefore()">Anterior</button>
-                <button onclick="onClickShowAnswer()">Mostrar resposta</button>
-                <button onclick="onClickNext()">Próximo</button>
-                <button onclick="onClickNext()">Mais opções</button>
+                <button id="btn-close" onclick="onClickClose()">Fechar</button>
+                <div id="toggle-answer">
+                    <button id="btn-show-answer" onclick="onClickShowAnswer()">Mostrar resposta</button>
+                    <div id="rate-btns">
+                        <button id="btn-answer-1" onclick="onClickNext()">Errei</button>
+                        <button id="btn-answer-2" onclick="onClickNext()">Quase acertei</button>
+                        <button id="btn-answer-3" onclick="onClickNext()">Acertei mas foi difícil</button>
+                        <button id="btn-answer-4" onclick="onClickNext()">Acertei de boas</button>
+                        <button id="btn-answer-5" onclick="onClickNext()">Foi muito fácil</button>
+                    </div>
+                </div>
+                <button id="btn-more-options">Mais opções</button>
             </div>
         </div>
     </body>
@@ -50,6 +57,15 @@
             if (index < (flashcards.length - 1)) {
                 index++;
                 buildCard();
+
+                var btnShowAnswer = document.getElementById("btn-show-answer");
+                btnShowAnswer.style.display = "inline-block";
+                var rateBtns = document.getElementById("rate-btns");
+                rateBtns.style.display = "none";
+            } else {
+                card.innerHTML = "<center>Revisão finalizada!</center>";
+                var rateBtns = document.getElementById("rate-btns");
+                rateBtns.style.display = "none";
             }
         }
 
@@ -61,6 +77,11 @@
             back.classList.add("back");
             var answer = document.createTextNode(flashcards[index]["back"]);
             back.appendChild(answer);
+
+            var btnShowAnswer = document.getElementById("btn-show-answer");
+            btnShowAnswer.style.display = "none";
+            var rateBtns = document.getElementById("rate-btns");
+            rateBtns.style.display = "flex";
         }
 
         function onClickBefore() {

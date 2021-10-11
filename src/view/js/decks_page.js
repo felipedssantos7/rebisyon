@@ -1,3 +1,7 @@
+function getAddFlashcadPage() {
+    requestGetAddFlashcadPage();
+}
+
 // Functions that create the decks table.
 function buildThead() {
     // Array of titles.
@@ -166,7 +170,7 @@ function addRow(row) {
 }
 
 // Add number of cards.
-function addCdsNmb(rows, col) {
+function addCardsNumber(rows, col) {
     for(var i = 0; i < rows.length; i++) {
         var tr = document.getElementById("row_" + rows[i].idDeckFK);
         var td = tr.children[col];
@@ -183,6 +187,6 @@ function rmRow(id) {
 // Call this function(s) when body loads.
 function onLoadBody() {
     buildThead();
-    getDks();
+    requestGetDecks();
     addInfos();
 }

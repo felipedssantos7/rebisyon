@@ -25,7 +25,7 @@ const createWindow = () => {
   });
 
   // and load the index.html of the app.
-  mainWindow.loadFile(path.join(__dirname, 'front/pages/decks_page.html'));
+  mainWindow.loadFile(path.join(__dirname, 'view/pages/decks_page.html'));
 };
 
 // This method will be called when Electron has finished
@@ -53,18 +53,18 @@ app.on('activate', () => {
 // In this file you can include the rest of your app's specific main process
 // code. You can also put them in separate files and import them here.
 
-const dbPath = path.resolve(__dirname, 'back/db/rebisyon.db')
+const dbPath = path.resolve(__dirname, 'model/db/rebisyon.db')
 var db = new sqlite3.Database(dbPath);
-const database = require(`${__dirname}/back/js/db.js`);
+const database = require(`${__dirname}/model/js/db.js`);
 
-ipcMain.on("rqtGetDks", (event) => {
+ipcMain.on("requestGetDecks", (event) => {
   var url = event["sender"]["getURL"]();
   database.getDks(db, function (err, rows)  {
     if(err == null) {
-      if (url == `file://${__dirname}/front/pages/decks_page.html`) {
-        mainWindow.webContents.send("rcvGetDks", rows);
-      } else if (url == `file://${__dirname}/front/pages/flashcards_page.html`) {
-        flashcardWindow.webContents.send("rcvGetDks", rows);
+      if (url == `file://${__dirname}/view/pages/decks_page.html`) {
+        mainWindow.webContents.send("receiveGetDecks", rows);
+      } else if (url == `file://${__dirname}/view/pages/flashcards_page.html`) {
+        flashcardWindow.webContents.send("receiveGetDecks", rows);
       }
     } else {
       mainWindow.webContents.send("error");
@@ -72,10 +72,10 @@ ipcMain.on("rqtGetDks", (event) => {
   });
 });
 
-ipcMain.on("rqtGetCdsNbr", (event, state) => {
+ipcMain.on("requestGetCardsNumber", (event, state) => {
   database.getCdsCnt(db, state, function (err, row) {
     if(err == null) {
-      mainWindow.webContents.send("rcvGetCdsNbr", state, row);
+      mainWindow.webContents.send("receiveGetCardsNumber", state, row);
     } else {
       mainWindow.webContents.send("error");
     }
@@ -126,7 +126,7 @@ ipcMain.on("rqtRmDk", (event, id) => {
   });
 })
 
-ipcMain.on("openFlashcardPage", (event) => {
+ipcMain.on("requestOpenAddFlashcardPage", (event) => {
   flashcardWindow = new BrowserWindow({
     width: 800,
     height: 600,
@@ -135,7 +135,7 @@ ipcMain.on("openFlashcardPage", (event) => {
       contextIsolation: false,
     },
   });
-  flashcardWindow.loadFile(`${__dirname}/front/pages/flashcards_page.html`);
+  flashcardWindow.loadFile(`${__dirname}/view/pages/flashcards_page.html`);
 });
 
 ipcMain.on("rqtGetUrl", (event, sel) => {
@@ -160,7 +160,7 @@ ipcMain.on("rqtGetUrl", (event, sel) => {
 
 ipcMain.on("rqtClozeWindow", (event) => {
   var url = event["sender"]["getURL"]();
-  if (url == `file://${__dirname}/front/pages/flashcards_page.html`) {
+  if (url == `file://${__dirname}/view/pages/flashcards_page.html`) {
     flashcardWindow.close();
   }
 });
@@ -189,7 +189,7 @@ ipcMain.on("openRvwPg", (event, idDk) => {
       contextIsolation: false,
     },
   });
-  reviewWindow.loadFile(`${__dirname}/front/pages/review_page.html`);
+  reviewWindow.loadFile(`${__dirname}/view/pages/review_page.html`);
 });
 
 ipcMain.on("rqtGetCds", (event) => {
